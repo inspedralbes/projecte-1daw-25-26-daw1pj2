@@ -36,10 +36,10 @@ CREATE TABLE ACTUACIO(
     -- INCIDENCIAS DE PRUEBA HECHAS POR IA PARA TESTEAR 
     -- 1. Insertar Departamentos
     INSERT INTO DEPARTAMENT (nom) VALUES 
-    ('Recursos Humans'), 
-    ('Contabilitat'), 
-    ('Sistemes'), 
-    ('Vendes');
+    ('Info'), 
+    ('Catala'), 
+    ('Mates'), 
+    ('Secretaria');
 
     -- 2. Insertar Técnicos
     INSERT INTO TECNIC (nom) VALUES 
