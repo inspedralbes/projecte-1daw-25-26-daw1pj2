@@ -1,7 +1,10 @@
 <?php include_once "header.php";?>
 
+
+
 <div class="mx-auto text-center mt-5" style="width: 200px;">
-    <h1>Benvigunt!</h1>
+<img src="../img/logoGI3P.png" alt="logo proyecte">    
+<h1>Benvigunt!</h1>
     <p>Tria una de les opcions:</p>
     
     <div class="row gap-2">

@@ -1,12 +1,12 @@
-<?php include_once "../header.php"; ?>
+<?php include_once "header.php"; ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <div class="container mt-5"> <!--con Margin Top: 5-->
         <div class="row justify-content-center align-items-center"> <!-- -->
             <div class="col-md-5 align-items-start"> <!--  ¿? -->
-                <img src="formularis-incidencies.jpg" alt="img Incidencies" style="max-width:400px" class="img-fluid rounded shadow"> <!-- fluid per moure l'imatge-->
+                <img src="../img/formularis-incidencies.jpg" alt="img Incidencies" style="max-width:400px" class="img-fluid rounded shadow"> <!-- fluid per moure l'imatge-->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 100px">
-                    <a href="index.php"><button class="btn rounded" style="background-color:#129987">INICI</button></a>
-                    <a href=""><button class="btn rounded" style="background-color:#129987">LLISTAR INCIDÈNCIES</button></a>
+                    <a href="index.php"><button class="btn rounded text-white" style="background-color:#129987">INICI</button></a>
+                    <a href="userList.php"><button class="btn rounded text-white" style="background-color:#129987">LLISTAR INCIDÈNCIES</button></a>
             </div>
             </div>
             
@@ -35,4 +35,4 @@
             </form>
         </div>
     </div>
-<?php include_once "../footer.php"; ?>
+<?php include_once "footer.php"; ?>
