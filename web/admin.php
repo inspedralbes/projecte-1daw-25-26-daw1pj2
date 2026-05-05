@@ -31,7 +31,10 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
                 <td><?php echo $INCIDENCIA["dataFinalitzacio"]?></td>
                 <td><?php echo $INCIDENCIA["tipo"]?></td>
                 <td><?php echo $INCIDENCIA["prioritat"]?></td>
-            </tr>           
+                <td>
+                    <a href="EditarAdmin.php?id=<?php echo $INCIDENCIA["idIncidencia"] ?>">EDITAR</a>
+                </td>
+            </tr>
         <?php } ?>
     </tbody>
 </table>

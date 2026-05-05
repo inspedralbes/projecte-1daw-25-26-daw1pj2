@@ -5,8 +5,8 @@
             <div class="col-md-5 align-items-start"> <!--  ¿? -->
                 <img src="../img/formularis-incidencies.jpg" alt="img Incidencies" style="max-width:400px" class="img-fluid rounded shadow"> <!-- fluid per moure l'imatge-->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 100px">
-                    <a href="index.php"><button class="btn rounded text-white" style="background-color:#129987">INICI</button></a>
-                    <a href="userList.php"><button class="btn rounded text-white" style="background-color:#129987">LLISTAR INCIDÈNCIES</button></a>
+                    <a href="index.php"><button class="btn rounded text-white btn-index" style="background-color:#129987">INICI</button></a>
+                    <a href="userList.php"><button class="btn rounded text-white btn-index" style="background-color:#129987">LLISTAR INCIDÈNCIES</button></a>
             </div>
             </div>
             

@@ -1,11 +1,19 @@
 <?php
 $mysqli = include_once "conexion.php";
-$idIncidencia = $_POST["id"];
-$descripcio =
-$data
-$department
-$tecnic
-$dataFinalitzacio
-$tipo
-$prioritat
+
+#només actualitzem el que editem
+$idIncidencia = $_POST["idIncidencia"];
+$tecnic = $_POST["tecnic"];
+$tipo = $_POST["tipo"];
+$prioritat = $_POST["prioritat"];
+
+$sentencia = $mysqli -> prepare("UPDATE INCIDENCIA SET
+tecnic = ?, tipo = ?, prioritat = ?
+WHERE idIncidencia = ?");
+
+$sentencia -> bind_param("issi", $tecnic, $tipo, $prioritat, $idIncidencia);
+
+$sentencia -> execute();
+
+header("Location: admin.php");
 ?>
