@@ -1,7 +1,7 @@
 <?php 
-    include_once "header.php";
+    include_once "../header.php";
 
-    $mysqli = include_once "conexion.php";
+    $mysqli = include_once "../conexion.php";
     $id = $_GET["id"];
     $sentencia = $mysqli -> prepare("SELECT * FROM INCIDENCIA WHERE idIncidencia = ?");
     $sentencia -> bind_param("i", $id);
@@ -40,4 +40,4 @@
 
 </form>
 
-<?php include_once "footer.php"; ?>
+<?php include_once "../footer.php"; ?>

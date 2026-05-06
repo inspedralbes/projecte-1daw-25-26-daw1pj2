@@ -1,8 +1,10 @@
-<?php include_once "header.php";?>
+<?php include_once "../header.php";?>
 
 <?php
-$mysqli = include_once "conexion.php";
-$resultado = $mysqli->query("SELECT * FROM INCIDENCIA");
+$mysqli = include_once "../conexion.php";
+$resultado = $mysqli->query("SELECT i.*, t.nom AS tecnic 
+    FROM INCIDENCIA i LEFT JOIN TECNIC t ON i.tecnic = t.idTecnic 
+    ORDER BY i.data DESC");
 $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);  
 ?>
 <table class="table">
@@ -13,8 +15,10 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
             <th>Descripcio</th>
             <th>Data Creació</th>
             <th>Departament</th>
+            <th>Tècnic</th>
             <th>Data Finalitzacio</th>
             <th>Tipus</th>
+            <th>Prioritat</th>
         </tr>
     </thead>
     <tbody>
@@ -25,14 +29,20 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
                 <td><?php echo $INCIDENCIA["descripcio"]?></td>
                 <td><?php echo $INCIDENCIA["data"]?></td>
                 <td><?php echo $INCIDENCIA["departament"]?></td>
+<!--Fem un JOIN LEFT per obtenir només el nom del tècnic i mostar-ho, en comptes del seu ID-->
+                <td><?php echo $INCIDENCIA["tecnic"]?></td>
                 <td><?php echo $INCIDENCIA["dataFinalitzacio"]?></td>
                 <td><?php echo $INCIDENCIA["tipo"]?></td>
-            </tr>           
+                <td><?php echo $INCIDENCIA["prioritat"]?></td>
+                <td>
+                    <a href="EditarAdmin.php?id=<?php echo $INCIDENCIA["idIncidencia"] ?>">EDITAR</a>
+                </td>
+            </tr>
         <?php } ?>
     </tbody>
 </table>
 
-<a href="index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
-<a href="CrearIncidUser.php" class="btn rounded text-white btn-index" style="background-color:#129987">VOLVER</a>
+<a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">INICI</a>
 
-<?php include_once "footer.php";?>
+
+<?php include_once "../footer.php";?>

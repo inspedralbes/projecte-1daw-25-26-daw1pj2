@@ -6,9 +6,9 @@
     <p>Tria una de les opcions:</p>
     
     <div class="d-grid gap-4">
-        <a href="CrearIncidUser.php" class="text-light btn btn-primary btn-index"><h4>PROFESSOR</h4></a>
+        <a href="user/CrearIncidUser.php" class="text-light btn btn-primary btn-index"><h4>PROFESSOR</h4></a>
         <a href="tecnic.php" class="text-light btn btn-primary btn-index"><h4>TÈCNIC</h4></a>
-        <a href="admin.php" class="text-light btn btn-primary btn-index"><h4>ADMINISTRADOR</h4></a>
+        <a href="admin/admin.php" class="text-light btn btn-primary btn-index"><h4>ADMINISTRADOR</h4></a>
     </div>
 </div>
 

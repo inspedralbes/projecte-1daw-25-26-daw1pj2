@@ -1,5 +1,5 @@
 <?php
-include_once "header.php"; 
+include_once "../header.php"; 
 
 $mysqli = include_once "conexion.php"; // $mysqli = 
 if($_SERVER["REQUEST_METHOD"] == "POST") {

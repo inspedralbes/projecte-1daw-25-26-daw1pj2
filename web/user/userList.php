@@ -1,7 +1,7 @@
-<?php include_once "header.php";?>
+<?php include_once "../header.php";?>
 
 <?php
-$mysqli = include_once "conexion.php";
+$mysqli = include_once "../conexion.php";
 $resultado = $mysqli->query("SELECT * FROM INCIDENCIA");
 $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);  
 ?>
@@ -13,10 +13,8 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
             <th>Descripcio</th>
             <th>Data Creació</th>
             <th>Departament</th>
-            <th>Tècnic</th>
             <th>Data Finalitzacio</th>
             <th>Tipus</th>
-            <th>Prioritat</th>
         </tr>
     </thead>
     <tbody>
@@ -27,19 +25,14 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
                 <td><?php echo $INCIDENCIA["descripcio"]?></td>
                 <td><?php echo $INCIDENCIA["data"]?></td>
                 <td><?php echo $INCIDENCIA["departament"]?></td>
-                <td><?php echo $INCIDENCIA["tecnic"]?></td>
                 <td><?php echo $INCIDENCIA["dataFinalitzacio"]?></td>
                 <td><?php echo $INCIDENCIA["tipo"]?></td>
-                <td><?php echo $INCIDENCIA["prioritat"]?></td>
-                <td>
-                    <a href="EditarAdmin.php?id=<?php echo $INCIDENCIA["idIncidencia"] ?>">EDITAR</a>
-                </td>
-            </tr>
+            </tr>           
         <?php } ?>
     </tbody>
 </table>
 
-<button class="btn btn-primary"><a href="index.php" class="text-light">INICI</a></button>
+<a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
+<a href="CrearIncidUser.php" class="btn rounded text-white btn-index" style="background-color:#129987">VOLVER</a>
 
-
-<?php include_once "footer.php";?>
+<?php include_once "../footer.php";?>
