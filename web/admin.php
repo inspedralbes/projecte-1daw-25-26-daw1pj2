@@ -39,7 +39,7 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
     </tbody>
 </table>
 
-<button class="btn btn-primary"><a href="index.php" class="text-light">Inici</a></button>
+<button class="btn btn-primary"><a href="index.php" class="text-light">INICI</a></button>
 
 
 <?php include_once "footer.php";?>

@@ -5,14 +5,14 @@
             <div class="col-md-5 align-items-start"> <!--  ¿? -->
                 <img src="../img/formularis-incidencies.jpg" alt="img Incidencies" style="max-width:400px" class="img-fluid rounded shadow"> <!-- fluid per moure l'imatge-->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 100px">
-                    <a href="index.php"><button class="btn rounded text-white btn-index" style="background-color:#129987">INICI</button></a>
-                    <a href="userList.php"><button class="btn rounded text-white btn-index" style="background-color:#129987">LLISTAR INCIDÈNCIES</button></a>
+                    <a href="index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
+                    <a href="userList.php" class="btn rounded text-white btn-index" style="background-color:#129987">LLISTAR INCIDÈNCIES</a>
             </div>
             </div>
             
             <div class="col-md-6 text-center" > <!-- md: medium -->
-                <h1 class="fw-bold text-center mb-5" style="margin-top: 60px">Crear incidència</h1>
-                <form action="InsertIncidUser.php" method="POST" class="border border-success rounded" style="width:600px; background-color: #60c7b6">
+                <h1 class="fw-bold text-center mb-5" style="margin-top: 60px">Crear incidència</h1> <!--Color anterior del formulario: background-color: #60c7b6-->
+                <form action="InsertIncidUser.php" method="POST" class="border border-success rounded" style="width:600px; background: linear-gradient(172deg,rgba(96, 199, 182, 1) 0%, rgba(133, 199, 161, 1) 0%, rgba(95, 178, 222, 1) 100%);">
                 
                     <div class="p-2">
                         <label class="fs-4 mt-4" for="descripcion">Descripció</label> <br>

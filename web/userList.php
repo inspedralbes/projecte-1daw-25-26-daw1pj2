@@ -32,7 +32,7 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
     </tbody>
 </table>
 
-<button class="btn btn-primary"><a href="index.php" class="text-light">Inici</a></button>
-
+<a href="index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
+<a href="CrearIncidUser.php" class="btn rounded text-white btn-index" style="background-color:#129987">VOLVER</a>
 
 <?php include_once "footer.php";?>

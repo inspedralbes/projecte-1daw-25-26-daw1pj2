@@ -22,7 +22,7 @@
     <label for="prioritat">Prioritat:</label>
     <select name="prioritat" id="prioritat">
         <option value="Alta" <?php if($incidencia["prioritat"] == "Alta") echo "selected"; ?>>Alta</option>
-        <option value="Mitjana" <?php if($incidencia["prioritat"] == "Mitja") echo "selected"; ?>>Mitjana</option>
+        <option value="Mitja" <?php if($incidencia["prioritat"] == "Mitja") echo "selected"; ?>>Mitja</option>
         <option value="Baixa" <?php if($incidencia["prioritat"] == "Baixa") echo "selected"; ?>>Baixa</option>
     </select>
     
@@ -35,6 +35,9 @@
     </select>
     <label for="tecnic">Assignar técnic:</label>
     <input type="number" name="tecnic" id="tecnic" value="<?php echo $incidencia["tecnic"]; ?>" placeholder="Técnic">
+
+    <button class="btn btn-success btn-index">DESA</button>
+
 </form>
 
 <?php include_once "footer.php"; ?>
