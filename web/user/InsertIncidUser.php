@@ -1,24 +1,23 @@
 <?php
 include_once "../header.php"; 
+include_once "../conexion.php"; // $mysqli está disponible amn "con.php"
 
-$mysqli = include_once "conexion.php"; // $mysqli = 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $desc = $_POST["descripcion"]; /*$variable  [columna] */
-    $fecha = $_POST["data"];
     $dept = $_POST["departament"];
-
-    $sentencia = $mysqli -> prepare("INSERT INTO INCIDENCIA (descripcio, data, departament)
-    VALUES (?,?,?)"
+#id i data es autocompleten amb ID autoincremental i SYSDATE()
+    $sentencia = $mysqli -> prepare("INSERT INTO INCIDENCIA (descripcio, departament)
+    VALUES (?,?)"
     );
     // prepare() & bind_param() preveuen SQL injections
-    $sentencia -> bind_param("ssi", $desc, $fecha, $dept);
+    $sentencia -> bind_param("si", $desc, $dept);
             /*data type we wanna introduce: string, date, int */
     $sentencia -> execute();
     // Un cop fet l'INSERT, obtenim l'ID de la nova fila
-    $idIncidencia = $mysqli -> query("SELECT LAST_INSERT_ID()") -> fetch_row()[0];
+    $idIncidencia = $mysqli -> insert_id; // últim ID (el de la nova fila insertada)
+
+echo "<h1>Incidència registrada amb éxit! </h1>";
+echo " ID de la incidència: " . $idIncidencia . "";
 }
+
 ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<h1 class="d-flex align-items-center">Incidència creda amb éxit</h1>
-<!--IMprimir el ID de la incidència-->
