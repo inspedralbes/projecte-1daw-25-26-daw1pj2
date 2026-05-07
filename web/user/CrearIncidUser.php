@@ -1,5 +1,7 @@
 <?php include_once "../header.php"; ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+<link rel="stylesheet" href="../css/responsive.css">
+
     <div class="container mt-5"> <!--con Margin Top: 5-->
         <div class="row justify-content-center align-items-center"> <!-- -->
             <div class="col-md-5 align-items-start"> <!--  ¿? -->

@@ -15,5 +15,5 @@ $sentencia -> bind_param("issi", $tecnic, $tipo, $prioritat, $idIncidencia);
 # PORTEGIT amb prepare() & bind_param() 
 $sentencia -> execute();
 
-header("Location: admin.php");
+header("Location: llistarIncidAdmin.php");
 ?>

@@ -38,6 +38,11 @@
 
     <button class="btn btn-success btn-index">DESA</button>
 
+<div>
+    <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">INICI</a>
+    <a href="listIncidAdmin.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">VOLVER</a>
+</div>
+
 </form>
 
 <?php include_once "../footer.php"; ?>

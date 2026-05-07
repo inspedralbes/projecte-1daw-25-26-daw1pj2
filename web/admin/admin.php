@@ -1,48 +1,14 @@
-<?php include_once "../header.php";?>
+<?php require_once "../header.php"; ?>
 
-<?php
-$mysqli = include_once "../conexion.php";
-$resultado = $mysqli->query("SELECT i.*, t.nom AS tecnic 
-    FROM INCIDENCIA i LEFT JOIN TECNIC t ON i.tecnic = t.idTecnic 
-    ORDER BY i.data DESC");
-$incidencies = $resultado->fetch_all(MYSQLI_ASSOC);  
-?>
-<table class="table">
-    <thead>
-        <legend>Llista d'incidències completa</legend>
-        <tr>
-            <th>ID</th>
-            <th>Descripcio</th>
-            <th>Data Creació</th>
-            <th>Departament</th>
-            <th>Tècnic</th>
-            <th>Data Finalitzacio</th>
-            <th>Tipus</th>
-            <th>Prioritat</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-            foreach ($incidencies as $INCIDENCIA) { ?>
-            <tr> <!--Exita inyeccions XSS mitjançant htmlspecialchars()-->
-                <td><?php echo htmlspecialchars($INCIDENCIA["idIncidencia"])?></td>
-                <td><?php echo htmlspecialchars($INCIDENCIA["descripcio"])?></td>
-                <td><?php echo htmlspecialchars($INCIDENCIA["data"])?></td>
-                <td><?php echo htmlspecialchars($INCIDENCIA["departament"])?></td>
-<!--Fem un JOIN LEFT per obtenir només el nom del tècnic i mostar-ho, en comptes del seu ID-->
-                <td><?php echo htmlspecialchars($INCIDENCIA["tecnic"])?></td>
-                <td><?php echo htmlspecialchars($INCIDENCIA["dataFinalitzacio"])?></td>
-                <td><?php echo htmlspecialchars($INCIDENCIA["tipo"])?></td>
-                <td><?php echo htmlspecialchars($INCIDENCIA["prioritat"])?></td>
-                <td>
-                    <a href="EditarAdmin.php?id=<?php echo htmlspecialchars($INCIDENCIA["idIncidencia"])?>">EDITAR</a>
-                </td>
-            </tr>
-        <?php } ?>
-    </tbody>
-</table>
+<link rel="stylesheet" href="../css/responsive.css">
 
-<a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">INICI</a>
+<div class="w-25 p-3"> <!--widht + padding-->
+    <div class="d-grid gap-4">
+        <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">INICI</a>
+        <a href="" class="btn rounded text-white btn-index" style="background-color:#278DE6">TROBA UN TÈCNIC</a>
+        <a href="listIncidAdmin.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">LLISTAR INCIDÈNCIES</a>
+        <a href="" class="btn rounded text-white btn-index" style="background-color:#278DE6">ASSIGNAR INCIDÈNCIES</a>
+    </div>
+</div>
 
-
-<?php include_once "../footer.php";?>
+ <?php require_once "../footer.php"; ?>
