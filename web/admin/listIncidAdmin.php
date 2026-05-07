@@ -12,7 +12,7 @@ $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);
 
 <table class="table">
     <thead>
-        <legend>Llista d'incidències completa</legend>
+        <legend>Llista de totes les incidències:</legend>
         <tr>
             <th>ID</th>
             <th>Descripcio</th>
