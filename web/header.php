@@ -11,8 +11,8 @@
 </head>
 <body>
     <header class="card">
-        <div style="#F9F6EE">
-            <div class="row align-items">
+        <div style="background-color: #F9F6EE">
+            <div class="row align-items-center">
             <div class="col-4">
                 <a href="/index.php"><img src="../img/logoGI3P.png" alt="logo" class="img-fluid" style="max-height: 80px"></a>
             </div> <!--/: la ruta es desde la raíz-->
@@ -20,7 +20,7 @@
                 <h2 class="text-dark">Aplicació de Gestió d'Incidències</h2>
             </div>
             <div class="col-4 text-end">
-                <h3 class="text-dark">Grup 2 <br> Adri & Paulina</h3>
+                <h4 class="text-dark">Grup 2 <br> Adri & Paulina</h4>
             </div>
         </div>
         </div>
