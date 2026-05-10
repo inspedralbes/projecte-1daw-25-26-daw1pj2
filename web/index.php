@@ -3,14 +3,14 @@
 
 <link rel="stylesheet" href="/css/responsive.css">
 
-<div id="intro" class="bg-image vh-100 shadow-1-strong">
+<div id="intro" class="bg-image vh-100 shadow-1-strong" style="position: relative;"> <!--Relativa para que "concuerde con el video"-->
     <video style="min-width: 100%; max-height: 100%;" playsinline autoplay muted loop>
         <source class="h-100" src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
     </video>
     <div class="mask video-alpha">
 
         <div class="mx-auto mt-5 text-center text-light" style="width: 200px;">
-            <img class="mt-5" src="../img/logoGI3P.png" alt="logo del projecte">    
+            <img class="mt-5" src="../img/logoGI3P.svg" alt="logo del projecte">    
             <h1>Benvingut!</h1>
             <p>Tria una de les opcions:</p>
             

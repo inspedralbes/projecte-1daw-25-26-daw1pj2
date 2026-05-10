@@ -16,8 +16,8 @@
     z-index: 0;
     background: linear-gradient(
     45deg,
-    rgba(13, 238, 197, 0.7),
-    rgba(114, 47, 221, 0.7) 100%);
+    rgba(11, 169, 140, 0.7),
+    rgba(74, 29, 145, 0.7) 100%);
     display: flex; /*Para poder centrar los items*/
     align-items: center;
 }

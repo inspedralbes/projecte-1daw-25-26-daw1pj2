@@ -17,15 +17,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $sentencia -> execute();
     // Un cop fet l'INSERT, obtenim l'ID de la nova fila
     $idIncidencia = $mysqli -> insert_id; // últim ID (el de la nova fila insertada)
-
-echo "<h1>Incidència registrada amb éxit! </h1>";
-echo " ID de la incidència: " . $idIncidencia . "";
 }
-
 ?>
-</div>
-<div>
-    <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">INICI</a>
-    <a href="CrearIncidUser.php" class="btn rounded text-white btn-index" style="background-color:#129987">VOLVER</a>
 
-</div>
+<?php if (isset($idIncidencia)): ?>
+    <div class='container mt-5 text-center'>
+        <img src='../img/AnimatedForm.gif' alt='A gif de un formulario siendo enviado' class='img-fluid mb-5 rounded shadow' style='max-width: 300px;'>
+        <h1>Incidència registrada amb éxit! </h1>
+        <p>ID de la incidència: <?php echo $idIncidencia; ?></p>
+        <a href='CrearIncidUser.php' class='btn btn-primary btn-index'>Torna enrrere</a>
+    </div>
+<?php endif; ?>
