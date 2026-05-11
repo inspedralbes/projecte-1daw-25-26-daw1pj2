@@ -24,11 +24,11 @@ if (isset($_GET["id"])) {
 
 <link rel="stylesheet" href="../css/responsive.css">
 
-<div class="container">
+<div class="table-responsive container container mt-5 col-4">
 
     <?php if(!isset ($_GET["id"])): ?>
             <h2>Escull el teu usuari:</h2>
-            <table border="1" cellpadding="10">
+            <table border="1" cellpadding="10" class="table table-hover mx-auto text-center">
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
@@ -41,7 +41,10 @@ if (isset($_GET["id"])) {
                     </tr>
                 <?php endforeach; ?>
             </table>
+    <a href="../index.php" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">INICI</a>            
     <?php endif; ?>
+</div>
+<div class="container">
 
     <?php if(isset($_GET['id'])): ?>
         <h2>Incidències que s'ha t'han assignat:</h2>
@@ -63,6 +66,10 @@ if (isset($_GET["id"])) {
                         <td><?php echo htmlspecialchars($incidencia['dataFinalitzacio'] ?? 'No finalitzada'); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['tipo']); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['prioritat']); ?></td>
+                        <td><a href="llistarActuacions.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
+                        class="btn btn-sm btn-info">Llistat d'actuacions</a></td>
+                        <td><a href="actuacioTec.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
+                        class="btn btn-sm btn-danger">Afegir actuació</a></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -74,10 +81,10 @@ if (isset($_GET["id"])) {
     <?php endif; ?>
 
     <div class="d-flex gap-2 mt-3">
-        <a href="../index.php" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">INICI</a>
         <!--Btn para volver atrás en la misma pàgina -->
         <?php if(isset($_GET['id'])): ?>
-            <a href="?" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">Tornar enrrere</a>
+            <a href="../index.php" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">INICI</a>
+            <a href="?" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">TORNAR</a>
         <?php endif; ?>
             
     </div>

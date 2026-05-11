@@ -25,6 +25,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <img src='../img/AnimatedForm.gif' alt='A gif de un formulario siendo enviado' class='img-fluid mb-5 rounded shadow' style='max-width: 300px;'>
         <h1>Incidència registrada amb éxit! </h1>
         <p>ID de la incidència: <?php echo $idIncidencia; ?></p>
-        <a href='CrearIncidUser.php' class='btn btn-primary btn-index'>Torna enrrere</a>
+        <a href='CrearIncidUser.php' class='btn btn-primary btn-index'>TORNAR</a>
     </div>
 <?php endif; ?>

@@ -62,9 +62,10 @@ $departments = [1 => "Informàtica", 2 => "Català", 3 => "Matemàtiques", 4 => 
             <?php } ?>
         </tbody>
     </table>
+    <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">INICI</a>
+    <a href="admin.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">TORNAR</a>
 </div>
 
-<a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">INICI</a>
-<a href="admin.php" class="btn rounded text-white btn-index" style="background-color:#278DE6">VOLVER</a>
+
 
 <?php include_once "../footer.php";?>
