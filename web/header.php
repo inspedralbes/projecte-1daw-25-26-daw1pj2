@@ -5,23 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GI3P</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.8/dist/sandstone/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="icon" href="../img/logoGI3P.png">
+<!-- Afeguim un sol cop bootstrap i el favicon que aparecixerán a totes les pàgines on s'afegueixi el header -->
 </head>
 <body>
-    <header class="card">
-        <div style="background-color: #F9F6EE">
-            <div class="row align-items-center">
-            <div class="col-4">
-                <a href="/index.php"><img src="../img/logoGI3P.png" alt="logo" class="img-fluid" style="max-height: 80px"></a>
-            </div> <!--/: la ruta es desde la raíz-->
-            <div class="col-4 text-center">
-                <h2 class="text-dark">Aplicació de Gestió d'Incidències</h2>
-            </div>
-            <div class="col-4 text-end">
-                <h4 class="text-dark">Grup 2 <br> Adri & Paulina</h4>
-            </div>
-        </div>
-        </div>
-    </header>
+
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/index.php"><img src="../img/logoGI3P.svg" alt="logo del projecte de 1er DAW de linstitut" style="height: 50px;"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="../user/CrearIncidUser.php">Professors
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../tecnic/tecnic.php">Tècnics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../admin/admin.php">Administrador</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Buscar incidència pel seu ID">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    </div>
+  </div>
+</nav>
