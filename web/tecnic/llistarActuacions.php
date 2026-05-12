@@ -47,8 +47,8 @@ if($idIncidencia){
                 <?php endif; ?>
             </tbody>
         </table>
-        <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
-        <a href="tecnic.php" class="btn rounded text-white btn-index" style="background-color:#129987">TORNAR</a>
+        <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>
+        <a href="tecnic.php" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
     </div>
 </div>
 

@@ -41,7 +41,7 @@ if (isset($_GET["id"])) {
                     </tr>
                 <?php endforeach; ?>
             </table>
-    <a href="../index.php" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">INICI</a>            
+    <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>            
     <?php endif; ?>
 </div>
 <div class="container">
@@ -83,8 +83,8 @@ if (isset($_GET["id"])) {
     <div class="d-flex gap-2 mt-3">
         <!--Btn para volver atrás en la misma pàgina -->
         <?php if(isset($_GET['id'])): ?>
-            <a href="../index.php" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">INICI</a>
-            <a href="?" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">TORNAR</a>
+            <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>
+            <a href="?" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
         <?php endif; ?>
             
     </div>

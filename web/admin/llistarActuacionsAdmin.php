@@ -32,7 +32,7 @@ if($id_tecnic){
                 <?php if (count($actuacions) > 0): ?>
                     <?php foreach ($actuacions as $actuacio): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($actuacio["idActuacio"]) ?></td>
+                        <td><?php echo htmlspecialchars($actuacio["idActuacio"] ?? 'Error: No té ID') ?></td>
                         <td><?php echo htmlspecialchars($actuacio["descripcio"])?></td>
                         <td><?php echo htmlspecialchars($actuacio["data"]) ?></td>
                         <td><?php echo htmlspecialchars($actuacio["incidencia"]) ?></td>
@@ -47,8 +47,8 @@ if($id_tecnic){
                 <?php endif; ?>
             </tbody>
         </table>
-        <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
-        <a href="listTecnics.php" class="btn rounded text-white btn-index" style="background-color:#129987">TORNAR</a>
+        <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>
+        <a href="listTecnics.php" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
     </div>
 </div>
 

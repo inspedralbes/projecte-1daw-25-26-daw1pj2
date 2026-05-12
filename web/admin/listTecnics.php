@@ -25,7 +25,7 @@ $resultado -> free();
             <?php endforeach; ?>
         </tbody>
     </table>
-    <a href="admin.php" class="btn rounded text-white btn-index" style="background-color: #117a0c">TORNAR</a>
+    <a href="admin.php" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
 </div>
 
 

@@ -19,20 +19,19 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="../user/CrearIncidUser.php">Professors
-          </a>
+          <a class="nav-link active " href="../user/CrearIncidUser.php"><h5>Professors</h5></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../tecnic/tecnic.php">Tècnics</a>
+          <a class="nav-link" href="../tecnic/tecnic.php"><h5>Tècnics</h5></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../admin/admin.php">Administrador</a>
+          <a class="nav-link" href="../admin/admin.php"><h5>Administrador</h5></a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Buscar incidència pel seu ID">
+      <form class="d-flex text-end">
+        <input class="form-control me-sm-2" type="search" size="25" placeholder="Buscar incidència pel seu ID">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
       </form>
     </div>

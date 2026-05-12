@@ -35,8 +35,8 @@ $departments = [1 => "Informàtica", 2 => "Català", 3 => "Matemàtiques", 4 => 
                 <?php } ?>
             </tbody>
         </table>
-        <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
-        <a href="CrearIncidUser.php" class="btn rounded text-white btn-index" style="background-color:#129987">TORNAR</a>
+        <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>
+        <a href="CrearIncidUser.php" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
 
     </div>
 </div>
