@@ -11,7 +11,7 @@ $return -> free(); // liberamos memoria
 $incid_tecnic = [];
 if (isset($_GET["id"])) {
     $id_tecnic = $_GET["id"];
-    $stmt = $mysqli -> prepare("SELECT * FROM INCIDENCIA WHERE tecnic = ? AND dataFinalitzacio IS NULL");
+    $stmt = $misqli -> prepare("SELECT idIncidencia, descripcio, DATE(data) AS fecha, departament, tecnic, dataFinalitzacio, tipo, prioritat FROM INCIDENCIA WHERE tecnic = ?");
     
     $stmt -> bind_param("i", $id_tecnic);
     $stmt -> execute();
@@ -53,7 +53,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'tancar' && isset($_GET['id_inc
                     </tr>
                 <?php endforeach; ?>
             </table>
-    <a href="../index.php" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">INICI</a>            
+    <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>            
     <?php endif; ?>
 </div>
 <div class="container">
@@ -74,7 +74,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'tancar' && isset($_GET['id_inc
                     <tr>
                         <td><?php echo htmlspecialchars($incidencia['idIncidencia']); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['descripcio']); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['data']); ?></td>
+                        <td><?php echo htmlspecialchars($incidencia['fecha']); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['dataFinalitzacio'] ?? 'No finalitzada'); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['tipo']); ?></td>
                         <td><?php echo htmlspecialchars($incidencia['prioritat']); ?></td>
@@ -100,8 +100,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'tancar' && isset($_GET['id_inc
     <div class="d-flex gap-2 mt-3">
         <!--Btn para volver atrás en la misma pàgina -->
         <?php if(isset($_GET['id'])): ?>
-            <a href="../index.php" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">INICI</a>
-            <a href="?" class="btn rounded text-white btn-index" style="background-color: #7a1b0c">TORNAR</a>
+            <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>
+            <a href="?" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
         <?php endif; ?>
             
     </div>

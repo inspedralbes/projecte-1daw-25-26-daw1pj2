@@ -1,9 +1,11 @@
 <?php include_once "../header.php";
-
+# Incloem capçelera i la connexio a la BD
 $mysqli = include_once "../conexion.php";
+
+// Consulta per obtenir totes les dades de INCIDENCIA
 $resultado = $mysqli->query("SELECT * FROM INCIDENCIA");
 $incidencies = $resultado->fetch_all(MYSQLI_ASSOC);  
-# Mostrar nom_dept en comptes del seu ID
+# Creem mapa per mostrar nom_dept en comptes del seu ID
 $departments = [1 => "Informàtica", 2 => "Català", 3 => "Matemàtiques", 4 => "Secretaria"];
 ?>
 
@@ -24,7 +26,7 @@ $departments = [1 => "Informàtica", 2 => "Català", 3 => "Matemàtiques", 4 => 
             <tbody>
                 <?php
                     foreach ($incidencies as $INCIDENCIA) { ?>
-                    <tr> <!--Evita XSS quan es fa echo de la BD en cas que es guardi una "comanda" maliciosa-->
+                    <tr> <!--Evita injeccions XSS quan es fa echo de la BD en cas que es guardi una "comanda" maliciosa-->
                         <td><?php echo htmlspecialchars($INCIDENCIA["idIncidencia"])?></td>
                         <td><?php echo htmlspecialchars($INCIDENCIA["descripcio"] ?? 'Sense descripció')?></td>
                         <td><?php echo htmlspecialchars($INCIDENCIA["data"])?></td>
@@ -35,8 +37,8 @@ $departments = [1 => "Informàtica", 2 => "Català", 3 => "Matemàtiques", 4 => 
                 <?php } ?>
             </tbody>
         </table>
-        <a href="../index.php" class="btn rounded text-white btn-index" style="background-color:#129987">INICI</a>
-        <a href="CrearIncidUser.php" class="btn rounded text-white btn-index" style="background-color:#129987">TORNAR</a>
+        <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>
+        <a href="CrearIncidUser.php" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
 
     </div>
 </div>

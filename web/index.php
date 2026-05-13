@@ -9,25 +9,27 @@
     <link rel="icon" href="../img/logoGI3P.png">
     <link rel="stylesheet" href="/css/responsive.css">
 </head>
-<body style="margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;">
-    <div id="intro" class="bg-image vh-100 shadow-1-strong" style="position: relative;"> <!--Relativa para que "concuerde con el video"-->
-    <video style="width: 100vw;" playsinline autoplay muted loop>
-        <source src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
-    </video>
-    <div class="mask video-alpha">
-        <div class="mx-auto mt-5 text-center text-light" style="width: 200px;">
-            <img class="mt-5" src="../img/logoGI3P.svg" alt="logo del projecte">    
-            <h1>Benvingut!</h1>
-            <p>Tria una de les opcions:</p>
-            <div class="d-grid gap-4">
-                <a class="btn btn-outline-light btn-lg m-2 btn-index" href="user/CrearIncidUser.php"><h4>PROFESSOR</h4></a>
-                <a class="btn btn-outline-light btn-lg m-2 btn-index" href="tecnic/tecnic.php"><h4>TÈCNIC</h4></a>
-                <a class="btn btn-outline-light btn-lg m-2 btn-index" href="admin/admin.php"><h4>ADMINISTRADOR</h4></a>
+<!-- body sense margin, padding i ocupa tot el ample i altura de la pantalla per evitar espais en blanc-->
+<body style="margin: 0; padding: 0; width: 100%; height: 100%;">
+    <div id="intro" class="bg-image vh-100 shadow-1-strong">
+        <video style="width: 100vw;" playsinline autoplay muted loop>
+            <source src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
+        </video>
+        <div class="mask video-alpha">
+            <div class="mx-auto mt-5 text-center text-light" style="width: 200px;">
+                <div class="container">
+                    <img class="mt-5" src="../img/logoGI3P.svg" alt="logo del projecte">    
+                        <h1>Gestor d'Incidències</h1>
+                        <p>Tria una de les opcions:</p>
+                    <div class="d-grid gap-4">
+                        <a class="btn btn-outline-light btn-lg m-2 btn-index" href="user/CrearIncidUser.php"><h4>PROFESSOR</h4></a>
+                        <a class="btn btn-outline-light btn-lg m-2 btn-index" href="tecnic/tecnic.php"><h4>TÈCNIC</h4></a>
+                        <a class="btn btn-outline-light btn-lg m-2 btn-index" href="admin/admin.php"><h4>ADMINISTRADOR</h4></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <?php include_once "footer.php";?>
 </body>
-
-</div>
-<?php include_once "footer.php";?>
