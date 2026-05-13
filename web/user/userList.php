@@ -29,7 +29,7 @@ $departments = [1 => "Informàtica", 2 => "Català", 3 => "Matemàtiques", 4 => 
                     <tr> <!--Evita injeccions XSS quan es fa echo de la BD en cas que es guardi una "comanda" maliciosa-->
                         <td><?php echo htmlspecialchars($INCIDENCIA["idIncidencia"])?></td>
                         <td><?php echo htmlspecialchars($INCIDENCIA["descripcio"] ?? 'Sense descripció')?></td>
-                        <td><?php echo htmlspecialchars($INCIDENCIA["data"])?></td>
+                        <td><?php echo date('d-m-Y', strtotime($INCIDENCIA["data"]))?></td>
                         <td><?php echo htmlspecialchars($departments[$INCIDENCIA["departament"]])?></td>
                         <td><?php echo htmlspecialchars($INCIDENCIA["dataFinalitzacio"]?? 'No Finalitzada')?></td>
                         <td><?php echo htmlspecialchars($INCIDENCIA["tipo"]?? 'No assignat') ?></td> <!-- No pot tenir valors NULL: afeguim ?? '' -->

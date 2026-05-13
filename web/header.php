@@ -30,7 +30,7 @@
           <a class="nav-link" href="../admin/admin.php"><h5>Administrador</h5></a>
         </li>
       </ul>
-      <form class="d-flex text-end">
+      <form class="d-flex text-end" action="/buscarIncidencia.php" method="GET">
         <input class="form-control me-sm-2" type="search" size="25" placeholder="Buscar incidència pel seu ID">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
       </form>
