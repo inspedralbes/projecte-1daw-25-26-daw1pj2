@@ -31,6 +31,16 @@ $labelsGrafica = array_keys($conteoPerData);
 $dadesGrafica = array_values($conteoPerData);
 ?>
 
+<div class="container mt-3">
+    <div class="row">
+        <div class="card border-primary text-center">
+            <div class="card-body">
+                <h3>Gràfiques Incidències</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="container mt-5">
@@ -40,6 +50,7 @@ $dadesGrafica = array_values($conteoPerData);
             <p class="lead">Monitorització de l'activitat de la pàgina web en temps real.</p>
         </div>
     </div>
+</div>
 
     <!-- Targeta del Total General -->
     <div class="row mb-4">

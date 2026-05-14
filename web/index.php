@@ -19,7 +19,8 @@
         </video>
         
         <div class="position-absolute top-0 start-0 w-100 h-100 mask-alpha"></div>
-    <!--Cerramos div para centar el contenido por encima de la máscara-->
+        <!--Cerramos div para centar el contenido por encima de la máscara-->
+        
         <!--Contenidor de tot el contingut-->
         <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white" style="z-index: 2;">
             <!--Creem un div de 2 columnes y les centrem-->

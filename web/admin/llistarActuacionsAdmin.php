@@ -14,20 +14,19 @@ if($id_tecnic){
 }
 ?>
 
-<div class="table-responsive">
-    <div class="container">
-            <table class="table">
-            <thead>
-                <legend>Llista de totes les actuacions</legend>
-                <tr>
-                    <th>ID</th>
-                    <th>Descripcio</th>
-                    <th>Data Creació</th>
-                    <th>Incidència</th>
-                    <th>Visibilitat</th>
-                    <th>Duració (min)</th>
-                </tr>
-            </thead>
+<div class="container">
+    <table class="table table-hover table-responsive">
+        <thead class="thead-dark">
+            <legend class="mt-5">Llista de totes les actuacions</legend>
+            <tr>
+                <th class="text-white">ID</th>
+                <th class="text-white">Descripcio</th>
+                <th class="text-white">Data Creació</th>
+                <th class="text-white">Incidència</th>
+                <th class="text-white">Visibilitat</th>
+                <th class="text-white">Duració (min)</th>
+            </tr>
+        </thead>
             <tbody>
                 <?php if (count($actuacions) > 0): ?>
                     <?php foreach ($actuacions as $actuacio): ?>
@@ -51,7 +50,6 @@ if($id_tecnic){
         <a href="../index.php" class="btn btn-primary rounded text-white btn-index">INICI</a>
         <a href="listTecnics.php" class="btn btn-primary rounded text-white btn-index">TORNAR</a>
     </div>
-</div>
 
 
 

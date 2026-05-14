@@ -60,15 +60,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'tancar' && isset($_GET['id_inc
 
     <?php if(isset($_GET['id'])): ?>
         <h2>Incidències que s'ha t'han assignat:</h2>
-        <table border="1" cellpadding="10">
-            <tr>
-                <th>ID</th>
-                <th>Descripció</th>
-                <th>Data</th>
-                <th>Data de finalització</th>
-                <th>Tipus</th>
-                <th>Prioritat</th>
-            </tr>
+        <table border="1" cellpadding="10" class="table table-hover table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-white">ID</th>
+                    <th class="text-white">Descripció</th>
+                    <th class="text-white">Data</th>
+                    <th class="text-white">Data de finalització</th>
+                    <th class="text-white">Tipus</th>
+                    <th class="text-white">Prioritat</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
             <?php if(count($incid_tecnic)>0): ?>
                 <?php foreach ($incid_tecnic as $incidencia): ?>
                     <tr>
