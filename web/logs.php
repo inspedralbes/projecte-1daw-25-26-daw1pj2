@@ -1,6 +1,10 @@
 <?php
 require 'vendor/autoload.php';
 include_once 'header.php';
+
+// URI de connexió a MongoDB Atlas (producc)
+$mongoUri = "mongodb+srv://a25adrtomdie_db_user:PLT+Rf4jTW61VqCN@cluster0.ew1qzdv.mongodb.net/?appName=Cluster0";
+
 // Connexió a MongoDB
 $client = new MongoDB\Client("mongodb://admin:pass@mongo:27017");
 $collection = $client->logs->logs;
