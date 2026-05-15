@@ -34,11 +34,6 @@ arsort($conteoPerPagina); // Pàgines més vistes primer
 $labelsGrafica = array_keys($conteoPerData);
 $dadesGrafica = array_values($conteoPerData);
 
-$DataHora = ;
-$metode = ;
-$URL = ;
-$IP = ;
-
 ?>
 
 <div class="container mt-5">
@@ -99,26 +94,6 @@ $IP = ;
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-        
-        <!--Taula -->
-        <div class="card mb-5">
-            <div class="card-header bg-primary text-white">
-                <h6 class="mb-0">Últim 10 accessos</h6>
-                <div class="table-responsive table-responsive">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th class="text-white">Dia + Hora</th>
-                        <th class="text-white">Mètode</th>
-                        <th class="text-white">URL</th>
-                        <th class="text-white">IP</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($conteo) ?>
-                    </tbody>
                 </div>
             </div>
         </div>
