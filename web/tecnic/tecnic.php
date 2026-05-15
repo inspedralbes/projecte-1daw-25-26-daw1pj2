@@ -1,5 +1,4 @@
 <?php
-require_once "../header.php";
 $mysqli = include_once "../conexion.php";
 # creamos una variable que haga un SELECT a la BD mediante conexion.php
 $return = $mysqli -> query("SELECT * FROM TECNIC");
@@ -29,9 +28,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'tancar' && isset($_GET['id_inc
     $stmt_update->close();
     
     $id_actual = $_GET['id']; 
-    header("Location: ?id=$id_actual");
+    header("Location: tecnic.php?id=$id_actual");
     exit;
 }
+require_once "../header.php";
+
 ?>
 
 <link rel="stylesheet" href="../css/responsive.css">
