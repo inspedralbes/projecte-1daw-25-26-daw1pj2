@@ -41,7 +41,7 @@
       </ul>
       <!--Dreta-->
       <form class="d-flex ms-auto form-right" action="/buscarIncidencia.php" method="GET">
-        <input class="form-control me-sm-2" type="search" size="25" placeholder="Buscar incidència pel seu ID">
+        <input class="form-control me-sm-2" type="search" size="30" placeholder="Buscar incidència pel seu ID">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
       </form>
     </div>
