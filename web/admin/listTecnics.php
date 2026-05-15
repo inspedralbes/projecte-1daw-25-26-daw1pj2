@@ -5,7 +5,7 @@ $resultado = $mysqli -> query("SELECT * FROM TECNIC");
 $tecnics = $resultado -> fetch_all(MYSQLI_ASSOC);
 $resultado -> free();
 ?>
-<div class="table-responsive container mt-5 col-4">
+<div class="table-responsive container mt-5 col-12 col-md-8">
     <table border="1" cellpadding="10" class="table table-hover mx-auto text-center">
         <h2>Llistat de Tècnics:</h2>
         <thead>
