@@ -14,10 +14,18 @@ $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 $pagina_actual = $_SERVER['REQUEST_URI'];
 $hora = date("H:i:s");
 
-# 
+# SYSTEM LOGS
 $collection->insertOne([
     'ip_origin' => $ip,
     'page' => $pagina_actual,
-    'date' => $hora
+    'method' => $_SERVER['REQUEST_METHOD'],
+    'date' => $hora,
+    'datetime' => date("d-m-Y H:i:s")
+]);
+# Per guardar el 10 últims logs (la variable la utilitzem a un altre doc.)
+$logs = $collection ->find([],
+[
+    'sort' => ['_id' => -1],
+    'limit' => 10
 ]);
 ?>

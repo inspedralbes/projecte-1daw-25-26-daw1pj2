@@ -30,11 +30,6 @@ arsort($conteoPerPagina); // Pàgines més vistes primer
 $labelsGrafica = array_keys($conteoPerData);
 $dadesGrafica = array_values($conteoPerData);
 
-$DataHora = ;
-$metode = ;
-$URL = ;
-$IP = ;
-
 ?>
 
 <div class="container mt-5">
@@ -113,7 +108,13 @@ $IP = ;
                     </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($conteo) ?>
+                        <?php foreach ($logs as $log): ?>
+                            <?php
+                                $DataHora = $log[datetime]?? '';
+                                $metode = $log[method]?? '';
+                                $URL = $pagina_actual?? '';
+                                $IP = $ip?? '';
+                            ?>
                     </tbody>
                 </div>
             </div>
