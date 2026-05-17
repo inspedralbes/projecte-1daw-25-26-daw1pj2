@@ -5,7 +5,7 @@ Aquest projecte consisteix en una aplicació web integral per a la gestió, cont
 ## 📁 Estructura del Projecte
 
 El codi font i els recursos del projecte s'organitzen dins de la carpeta principal del servidor web:
-
+```
 /
 ├── index.php                 # Pàgina d'inici, benvinguda i enrutament inicial
 ├── login.php                 # Sistema d'autenticació i control de sessions d'usuari
@@ -18,7 +18,7 @@ El codi font i els recursos del projecte s'organitzen dins de la carpeta princip
 ├── css/                      # Fulls d'estil visuals (Framework Bootstrap 5 i personalitzats)
 ├── js/                       # Fitxers de validació en JavaScript en el costat del client
 └── img/                      # Recurs de gràfics, captures d'accessibilitat i logotips
-
+```
 ---
 
 ## ⚙️ Funcionalitats Principals Implementades
