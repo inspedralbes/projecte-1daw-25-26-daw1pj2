@@ -53,5 +53,5 @@ supervisen el procés.
 - ✅ Llistat d'incidències: AA
 
 ### Equip i Commits
-- **Bitàcora:** [Link a Google Sheets]
-- **TAIGA:** [Link a TAIGA]
+- **Bitàcora:** https://docs.google.com/spreadsheets/d/1SL9not5epc_ZAFcZTmjhofyzik6h5wyrPeDjpOKwPV4/edit?gid=1551247593#gid=1551247593
+- **TAIGA:** https://tree.taiga.io/project/a25adrtomdie-daw1pj2/backlog
