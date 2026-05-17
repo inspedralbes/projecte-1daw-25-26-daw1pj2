@@ -12,7 +12,7 @@ $departments = [1 => "Informàtica", 2 => "Català", 3 => "Matemàtiques", 4 => 
 
 <link rel="stylesheet" href="../css/responsive.css">
 
-<div class="table-responsive container">
+<div class="table-responsive-md container">
     <table class="table table-hover">
         <thead>
             <legend>Llista de totes les incidències:</legend>

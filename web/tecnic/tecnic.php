@@ -62,46 +62,48 @@ if (isset($_GET['action']) && $_GET['action'] == 'tancar' && isset($_GET['id_inc
 
     <?php if(isset($_GET['id'])): ?>
         <h2>Incidències que s'ha t'han assignat:</h2>
-        <table border="1" cellpadding="10" class="table table-hover table-responsive">
-            <thead class="thead-dark">
-                <tr>
-                    <th class="text-white">ID</th>
-                    <th class="text-white">Descripció</th>
-                    <th class="text-white">Data</th>
-                    <th class="text-white">Data de finalització</th>
-                    <th class="text-white">Tipus</th>
-                    <th class="text-white">Prioritat</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <?php if(count($incid_tecnic)>0): ?>
-                <?php foreach ($incid_tecnic as $incidencia): ?>
+        <div class="table-responsive">
+            <table border="1" cellpadding="10" class="table table-hover">
+                <thead class="thead-dark">
                     <tr>
-                        <td><?php echo htmlspecialchars($incidencia['idIncidencia']); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['descripcio']); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['fecha']); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['dataFinalitzacio'] ?? 'No finalitzada'); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['tipo']); ?></td>
-                        <td><?php echo htmlspecialchars($incidencia['prioritat']); ?></td>
-                        <td><a href="?id=<?php echo $id_tecnic; ?>&action=tancar&id_incidencia=<?php echo $incidencia['idIncidencia']; ?>" 
-                        class="btn btn-sm btn-danger" onclick="return confirm('Segur que vols tancar la incidència <?php echo $incidencia['idIncidencia']; ?>?')">
-                        Tancar
-                        </a></td>
-                        <td><a href="llistarActuacions.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
-                        class="btn btn-sm btn-info">Llistat d'actuacions</a></td>
-                        <td><a href="actuacioTec.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
-                        class="btn btn-sm btn-danger">Afegir actuació</a></td>
-                        
+                        <th class="text-white">ID</th>
+                        <th class="text-white">Descripció</th>
+                        <th class="text-white">Data</th>
+                        <th class="text-white">Data de finalització</th>
+                        <th class="text-white">Tipus</th>
+                        <th class="text-white">Prioritat</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="6">Aquest tècnic no té incidències assignades!</td>
-                </tr>
-            <?php endif; ?>
-        </table>
+                </thead>
+                <?php if(count($incid_tecnic)>0): ?>
+                    <?php foreach ($incid_tecnic as $incidencia): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($incidencia['idIncidencia']); ?></td>
+                            <td><?php echo htmlspecialchars($incidencia['descripcio']); ?></td>
+                            <td><?php echo htmlspecialchars($incidencia['fecha']); ?></td>
+                            <td><?php echo htmlspecialchars($incidencia['dataFinalitzacio'] ?? 'No finalitzada'); ?></td>
+                            <td><?php echo htmlspecialchars($incidencia['tipo']); ?></td>
+                            <td><?php echo htmlspecialchars($incidencia['prioritat']); ?></td>
+                            <td><a href="?id=<?php echo $id_tecnic; ?>&action=tancar&id_incidencia=<?php echo $incidencia['idIncidencia']; ?>" 
+                            class="btn btn-sm btn-danger" onclick="return confirm('Segur que vols tancar la incidència <?php echo $incidencia['idIncidencia']; ?>?')">
+                            Tancar
+                            </a></td>
+                            <td><a href="llistarActuacions.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
+                            class="btn btn-sm btn-info">Llistat d'actuacions</a></td>
+                            <td><a href="actuacioTec.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
+                            class="btn btn-sm btn-danger">Afegir actuació</a></td>
+                            
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="6">Aquest tècnic no té incidències assignades!</td>
+                    </tr>
+                <?php endif; ?>
+            </table>
+        </div>
     <?php endif; ?>
 
     <div class="d-flex gap-2 mt-3">

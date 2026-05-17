@@ -4,7 +4,7 @@ include_once 'header.php'; #require 'vendor/autoload.php'; ja se carga en el hea
 $client = new MongoDB\Client("mongodb://admin:pass@mongo:27017");
 $collection = $client->logs->logs;
 
-// Obtenir tots els registres
+// Obtenir tots els registres (sense filtre)
 $documents = $collection->find();
 
 $totalGeneral = 0;
@@ -29,7 +29,7 @@ foreach ($documents as $doc) {
     $usuari = $doc['usuari'] ?? 'anonim';
     $conteoPerUsuari[$usuari] = ($conteoPerUsuari[$usuari] ?? 0) +1;
 
-    //acces del dia
+    //acces del dia (agafem els 10 primer characters = "dd-mm-YYYY")
     $dataDoc = substr($doc['datetime']  ?? '', 0, 10);
     if($dataDoc === $avui){
         $accessosAvui++;
@@ -59,18 +59,19 @@ $filtreDataInici = $_GET['data_inici'] ?? '';
 $filtreDataFi = $_GET['data_fi'] ?? '';
 $filtreUsuari = $_GET['usuari'] ?? '';
 $filtrePagina = $_GET['pagina'] ?? '';
-
 // Filtre amb MongoDB
 $filtre = [];
-// Data
+
+// Data (a l'hora s l'hi afeguiex espai)
 if ($filtreDataInici && $filtreDataFi) {
-    $filtre['datetime'] = [
-        '$gte' => DateTime::createFromFormat('Y-m-d', $filtreDataInici) -> format('d-m-Y') . '00:00:00',
-        '$lte' => DateTime::createFromFormat('Y-m-d', $filtreDataFi) -> format('d-m-Y') . '23:59:59',
-    ];
-} else if ($filtreDataInici) {
-    $filtre['datatime']['$gte'] = DateTime::createFromFormat('Y-m-d', $filtreDataInici) -> format('d-m-Y') . '00:00:00';
-    $filtre['datatime']['$lte'] = DateTime::createFromFormat('Y-m-d', $filtreDataFi) -> format('d-m-Y') . '23:59:59';
+    $inici = DateTime::createFromFormat('Y-m-d', $filtreDataInici) -> format('d-m-Y') . ' 00:00:00';
+    $fi = DateTime::createFromFormat('Y-m-d', $filtreDataFi) -> format('d-m-Y') . ' 23:59:59';
+    $filtre['datetime'] = ['$gte' => $inici, '$lte' => $fi];
+} elseif ($filtreDataInici) {
+    // to filtre només el dia de inici
+    $inici = DateTime::createFromFormat('Y-m-d', $filtreDataInici) -> format('d-m-Y') . ' 00:00:00';
+    $fi = DateTime::createFromFormat('Y-m-d', $filtreDataFi) -> format('d-m-Y') . ' 23:59:59';
+    $filtre['datatime'] =['$gte' => $inici, '$lte' => $fi];
 }
 // Usuari
 if ($filtreUsuari) {
@@ -81,7 +82,11 @@ if ($filtrePagina) {
     $filtre['page'] = $filtrePagina;
 }
 
-$documents = $collection -> find($filtre);
+
+$logs = $collection -> find($filtre, [
+    'sort' => ['_id' => -1],
+    'limit'    => 10,
+]);
 ?>
 
 <div class="container mt-5">
@@ -100,7 +105,7 @@ $documents = $collection -> find($filtre);
         <!--Total Accesos-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
-                <div class="card-body text-xenter">
+                <div class="card-body text-center">
                     <i class="bi bi-bar-chart-fill fs-1"></i><!--Icona d'un chart-->
                     <h6 class="mt-2">Total accessos</h6>
                     <h2><?= $totalGeneral ?></h2>
@@ -110,7 +115,7 @@ $documents = $collection -> find($filtre);
         <!--Usuari més actiu-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
-                <div class="card-body text-xenter">
+                <div class="card-body text-center">
                     <i class="bi bi-person-check fs-1"></i><!--Usuari + actiu, o guanyador: bi-person-fill o bi-trophy-fill-->
                     <h6 class="mt-2">Usuari més actiu</h6>
                     <h2><?= $usuariMesActiu ?></h2>
@@ -120,7 +125,7 @@ $documents = $collection -> find($filtre);
         <!--Pàgina més visitada-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
-                <div class="card-body text-xenter">
+                <div class="card-body text-center">
                     <i class="bi-globe fs-1"></i><!--o: bi-file-earmark-text-fill-->
                     <h6 class="mt-2">Pàgina més visitada</h6>
                     <h2><?= $paginaMesVisitada ?></h2>
@@ -130,7 +135,7 @@ $documents = $collection -> find($filtre);
         <!--Accessos per dia-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
-                <div class="card-body text-xenter">
+                <div class="card-body text-center">
                     <i class="bi-calendar-event-fill fs-1"></i><!--o: bi-graph-up-arrow-->
                     <h6 class="mt-2">Accessos per dia</h6>
                     <h2><?= $accessosAvui ?></h2>
@@ -139,50 +144,50 @@ $documents = $collection -> find($filtre);
         </div>
     </div>
     <!--Filters-->
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body">
-            <div class="row g-3">
-                <div class="col-6 col-md-2">
-                    <label for="Data Inici" class="form-label small fw-medium">Des de:</label>
-                    <input type="date" class="form-control form-control-sm" value=""><!--SYSDATE VALUE-->
-                </div>
-                <div class="col-6 col-md-2">
-                    <label for="útima data" class="form-label small fw-medium">Fins a:</label>
-                    <input type="date" class="form-control form-control-sm" value=""><!--SYSDATE VALUE-->
-                </div>
-                <div class="col-md-3">
-                    <label for="Data Inici" class="form-label small fw-medium">Usuari</label>
-                    <select name="usuari" id="usuari" class="form-control form-control-sm">
-                        <option value="">Tots</option>
-                        <option value="user" <?= $filterUsuari === 'user' ? 'selected' : '' ?>>Professor</option>
-                        <option value="tecnic" <?= $filterUsuari === 'tecnic' ? 'selected' : '' ?>>Tècnic</option>
-                        <option value="admin" <?= $filterUsuari === 'admin' ? 'selected' : '' ?>>Admin</option>
-                        <option value="anonim" <?= $filterUsuari === 'anonim' ? 'selected' : '' ?>>Anònim</option>
-                    </select>
-                </div>
-                <div class="col-md-5 d-flex align-items-end gap-2">
-                    <button class="btn btn-primary text-white btn-sm px-3">
-                        <i class="bi bi-funnel me-1"></i>Filtrar
-                    </button>
-                    <a href="logs.php" class="btn btn-light border btn-sm px-3 text-muted">
-                        <i class="bi bi-eraser-fill me-1"> Natejar</i>
-                    </>
+    <form method="GET" action="logs.php">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6 col-md-2">
+                        <label for="Data Inici" class="form-label small fw-medium">Des de:</label>
+                        <input type="date" name="data_inici" class="form-control form-control-sm" value="<?= htmlspecialchars($filtreDataInici) ?>">
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label for="útima data" class="form-label small fw-medium">Fins a:</label>
+                        <input type="date" name="data_fi" class="form-control form-control-sm" value="<?= htmlspecialchars($filtreDataFi) ?>">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Data Inici" class="form-label small fw-medium">Usuari</label>
+                        <select name="usuari" id="usuari" class="form-control form-control-sm">
+                            <option value="">Tots</option>
+                            <option value="professor" <?= $filtreUsuari === 'professor' ? 'selected' : '' ?>>Professor</option>
+                            <option value="tecnic" <?= $filtreUsuari === 'tecnic' ? 'selected' : '' ?>>Tècnic</option>
+                            <option value="admin" <?= $filtreUsuari === 'admin' ? 'selected' : '' ?>>Admin</option>
+                            <option value="anonim" <?= $filtreUsuari === 'anonim' ? 'selected' : '' ?>>Anònim</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5 d-flex align-items-end gap-2">
+                        <button class="btn btn-primary text-white btn-sm px-3">
+                            <i class="bi bi-funnel me-1"></i>Filtrar
+                        </button>
+                        <a href="logs.php" class="btn btn-light border btn-sm px-3 text-muted">
+                            <i class="bi bi-eraser-fill me-1"></i>Natejar
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     <!--Charts-->
     <div class="row g-4 mb-4">
         <div class="col-12 col-lg-8">
-            <div class="card">
-                <div class="card-header shadow-sm h-100">
-                    <div class="card-header">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-graph-up"></i> Tendència</h6>
-                    </div>
-                    <div class="card-body">
-                        <div style="height: 250px;">
-                            <canvas id="trendChart"></canvas>
-                        </div>
+            <div class="card-border shadow-sm h-100">
+                <div class="card-header">
+                    <h6 class="fw-bold mb-0"><i class="bi bi-graph-up"></i> Tendència</h6>
+                </div>
+                <div class="card-body">
+                    <div style="height: 250px;">
+                        <canvas id="trendChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -220,7 +225,7 @@ $documents = $collection -> find($filtre);
                     <?php foreach ($logs as $log): ?>
                     <!--Loop per saber quin badge utilitzar-->
                     <?php
-                        $method = htmlspecialchars($log['methode'] ?? 'GET');
+                        $method = htmlspecialchars($log['method'] ?? 'GET');
                         $badgeClass = match($method) {
                             'POST' => 'bg-warning text-dark',
                             'DELETE' => 'bg-danger',

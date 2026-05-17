@@ -24,7 +24,8 @@ $collection->insertOne([
 ]);
 # Per guardar el 10 últims logs (la variable la utilitzem a un altre doc.)
 $logs = $collection->find([], [
-    'sort' => ['_id' => -1],
-    'limit' => 10
+    'sort' => ['_id' => -1], // sort it
+    'limit' => 10 // to limit it
 ]);
+
 ?>
