@@ -25,7 +25,7 @@ supervisen el procés.
 ### Accés
 - **URL Producció:** http://grup2.daw.inspedralbes.cat
 - **Documentació PHPDoc:** http://grup2.daw.inspedralbes.cat/docs
-- **Repositori GitHub:** [URL del repo]
+- **Video demo:** https://drive.google.com/file/d/1bTqiTqe2Wa0HXurf-94SPJGI5furUWzZ/view?usp=drive_link
 
 ### Tecnologies
 - Backend: PHP 7.4+ (procedural)
