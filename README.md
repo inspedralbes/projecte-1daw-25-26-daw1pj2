@@ -1,25 +1,57 @@
-# PROJECTE FINAL DAW1PJ2
+# GI3P - Gestió d'Incidències Informàtiques Institut Pedralbes
 
-## APLICACIÓ DE GESTIÓ D'INCIDÈNCIES INFORMÀTIQUES
-La finalitat d'aquest projecte és la de crear una aplicació on el professorat de l'institut pugui **comunicar incidències** al equip tècnic, i aquest pugui **gestionar-les amb facilitat**.
+## Grup2 - 1r DAW 2025-26
 
-### INTEGRANTS
-- Adrián Tomás Diez
-- Paulina Barrera Limones
+### Integrantes
+- Adrián Tomás
+- Paulina Barrera
 
-## INFORMACIÓ ADDICIONAL
-#### GESTOR DE TASQUES
-Per gestionar els sprints i repartir les tasques, utilitzarem [Taiga](https://tree.taiga.io/project/a25adrtomdie-daw1pj2/timeline).
-#### PROTOTIP GRÀFIC
+### Objectiu del Projecte
+Sistema web per a la gestió d'incidències informàtiques de l'Institut Pedralbes, 
+permetent que professors reportin problemes, tècnics els solucinin i administradors 
+supervisen el procés.
 
-<details>
-<summary>Aquest es <strong>l'esquema de pantalles</strong> que farem servir per crear l'aplicació</summary>
+### Estat del Projecte
+**EN PRODUCCIÓ**
+
+#### Funcionalitats Implementades
+- Registre de incidències
+- Llistats d'incidències
+- Panel de tècnics
+- Panel d'administrador
+- Sistema de logs amb MongoDB
+- Estadístiques d'accés
   
-  ![Esquema de pantalles del projecte](doc/esquemaPantallas.jpg)
-</details>
+### Accés
+- **URL Producció:** http://grup2.daw.inspedralbes.cat
+- **Documentació PHPDoc:** http://grup2.daw.inspedralbes.cat/docs
+- **Repositori GitHub:** [URL del repo]
 
-## ESTAT DEL PROJECTE
-A dia 24 d'abril, ens trobem acabant l'sprint 0, això vol dir que hem terminat la preparació del projecte i ja podem començar a treballar en l'aplicació.
+### Tecnologies
+- Backend: PHP 7.4+ (procedural)
+- Frontend: HTML5, CSS3, Bootstrap 5, JavaScript
+- BD Relacional: MySQL
+- BD Document: MongoDB Atlas
+- Servidor: Apache
+### Estructura del Projecte
+```
+/
+├── index.php           # Pàgina principal
+├── login.php           # Autenticació
+├── logs.php            # Estadístiques
+├── conexio.php         # Connexió a BD
+├── user/               # Panell professor
+├── tecnic/             # Panell tècnic
+├── admin/              # Panell administrador
+├── css/                # Estils
+├── js/                 # Scripts
+└── img/                # Imatges
+```
 
-# Falta per afegir al readme:
- * URL de producció (quan la tingueu)
+### Validació WCAG AA
+- ✅ Formulari de crear incidència: AA
+- ✅ Llistat d'incidències: AA
+
+### Equip i Commits
+- **Bitàcora:** [Link a Google Sheets]
+- **TAIGA:** [Link a TAIGA]
