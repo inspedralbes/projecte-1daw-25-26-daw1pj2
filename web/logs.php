@@ -1,94 +1,101 @@
 <?php
-include_once 'header.php'; #require 'vendor/autoload.php'; ja se carga en el header (evitar duplicados)
-// Connexió a MongoDB
-$mongoUri = "mongodb+srv://a25adrtomdie_db_user:PLT+Rf4jTW61VqCN@cluster0.ew1qzdv.mongodb.net/?appName=Cluster0";
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+include_once 'header.php'; 
 
+// Connexió a MongoDB Atlas
+$mongoUri = "mongodb+srv://a25adrtomdie_db_user:PLT%2BRf4jTW61VqCN@cluster0.ew1qzdv.mongodb.net/?appName=Cluster0";
 $client = new MongoDB\Client($mongoUri);
 $collection = $client->logs->logs;
 
-// Obtenir tots els registres (sense filtre)
-$documents = $collection->find();
+// 1. Recollim les variables del filtre (mètode GET)
+$filtreDataInici = $_GET['data_inici'] ?? '';
+$filtreDataFi    = $_GET['data_fi']    ?? '';
+$filtreUsuari    = $_GET['usuari']     ?? '';
+$filtrePagina    = $_GET['pagina']     ?? '';
 
+// 2. Filtre directe a MongoDB només per text exacte (Usuari i Pàgina)
+$filtreMongo = [];
+if ($filtreUsuari) { $filtreMongo['usuari'] = $filtreUsuari; }
+if ($filtrePagina) { $filtreMongo['page'] = $filtrePagina; }
+
+// Obtenim els registres ordenats del més nou al més vell
+$documents = $collection->find($filtreMongo, ['sort' => ['_id' => -1]]);
+
+// 3. Preparem els objectes de data en PHP per al filtre de rang de temps
+$dateIniciObj = $filtreDataInici ? DateTime::createFromFormat('Y-m-d', $filtreDataInici) : null;
+if ($dateIniciObj) $dateIniciObj->setTime(0, 0, 0);
+
+$dateFiObj = $filtreDataFi ? DateTime::createFromFormat('Y-m-d', $filtreDataFi) : null;
+if ($dateIniciObj && !$dateFiObj) {
+    $dateFiObj = clone $dateIniciObj; // Si només hi ha inici, el fi és aquest mateix dia
+}
+if ($dateFiObj) $dateFiObj->setTime(23, 59, 59);
+
+// Variables de les targetes i gràfiques
 $totalGeneral = 0;
-$conteoPerData = []; // S'agrupa per hora, per a la gràfica de tèndencia
-$conteoPerPagina = []; // Pàgines més visitades
-$conteoPerUsuari = []; // Per usuari més actiu
-$accessosAvui = 0; // Accessos del dia
+$conteoPerData = []; 
+$conteoPerPagina = []; 
+$conteoPerUsuari = []; 
+$accessosAvui = 0; 
 $avui = date("d-m-Y");
 
+$logsTaula = []; // Aquí guardarem només els 10 últims logs vàlids per a la taula
+
+// 4. Processament de dades
 foreach ($documents as $doc) {
+    // Extraiem només el dia (dd-mm-yyyy)
+    $dataDocText = isset($doc['datetime']) ? substr($doc['datetime'], 0, 10) : '';
+    if (!$dataDocText) continue;
+
+    $docDateObj = DateTime::createFromFormat('d-m-Y', $dataDocText);
+    if (!$docDateObj) continue;
+
+    // APLIQUEM EL FILTRE DE DATES AQUÍ (Molt més segur que a MongoDB)
+    if ($dateIniciObj && $docDateObj < $dateIniciObj) continue;
+    if ($dateFiObj && $docDateObj > $dateFiObj) continue;
+
+    // --- SI PASSA TOTS ELS FILTRES, SUMEM LES ESTADÍSTIQUES ---
     $totalGeneral++;
     
-    // Agrupació -> tendència (d-m-Y H:i)
-    $hora = substr($doc['date'] ?? '00:00', 0, 5);
-    $conteoPerData[$hora] = ($conteoPerData[$hora] ?? 0) + 1;
+    // Guardem els 10 més recents per a la taula HTML
+    if (count($logsTaula) < 10) {
+        $logsTaula[] = $doc;
+    }
+
+    // Gràfica per DIES (Agrupem per dia, ex: "17-05-2026")
+    $conteoPerData[$dataDocText] = ($conteoPerData[$dataDocText] ?? 0) + 1;
     
-    // pàgines
+    // Pàgines més visitades
     $pagina = $doc['page'] ?? 'Desconeguda';
     $conteoPerPagina[$pagina] = ($conteoPerPagina[$pagina] ?? 0) + 1;
 
-    //usuari més actiu: Extraemos el role del usuario
+    // Usuari més actiu
     $usuari = $doc['usuari'] ?? 'anonim';
-    $conteoPerUsuari[$usuari] = ($conteoPerUsuari[$usuari] ?? 0) +1;
+    $conteoPerUsuari[$usuari] = ($conteoPerUsuari[$usuari] ?? 0) + 1;
 
-    //acces del dia (agafem els 10 primer characters = "dd-mm-YYYY")
-    $dataDoc = substr($doc['datetime']  ?? '', 0, 10);
-    if($dataDoc === $avui){
+    // Accessos del dia actual
+    if ($dataDocText === $avui) {
         $accessosAvui++;
     }
 }
 
-ksort($conteoPerData); // Ordenar per data/hores
-arsort($conteoPerPagina); // Pàgines més vistes primer
-arsort($conteoPerUsuari); // Usuaris més actius
+// 5. Ordenació final per a que les gràfiques tinguin sentit
+// Ordenem les dates cronològicament (de més antiga a més nova per a l'eix X)
+uksort($conteoPerData, function($a, $b) {
+    $dateA = DateTime::createFromFormat('d-m-Y', $a);
+    $dateB = DateTime::createFromFormat('d-m-Y', $b);
+    return $dateA <=> $dateB;
+});
 
-// labels i dades per al chart
+arsort($conteoPerPagina); 
+arsort($conteoPerUsuari); 
+
 $labelsGrafica = array_keys($conteoPerData);
 $dadesGrafica = array_values($conteoPerData);
-
-// labels i dades per al chart de usuaris
 $labelUsuaris = array_keys($conteoPerUsuari);
 $dadesUsuaris = array_values($conteoPerUsuari);
-
-// Usuari més actiu (será el 1er de la llista ordenada)
 $usuariMesActiu = array_key_first($conteoPerUsuari) ?? '-';
-
-// Pagina més visitada
 $paginaMesVisitada = array_key_first($conteoPerPagina) ?? '-';
-
-// Variables per als filtres
-$filtreDataInici = $_GET['data_inici'] ?? '';
-$filtreDataFi = $_GET['data_fi'] ?? '';
-$filtreUsuari = $_GET['usuari'] ?? '';
-$filtrePagina = $_GET['pagina'] ?? '';
-// Filtre amb MongoDB
-$filtre = [];
-
-// Data (a l'hora s l'hi afeguiex espai)
-if ($filtreDataInici && $filtreDataFi) {
-    $inici = DateTime::createFromFormat('Y-m-d', $filtreDataInici) -> format('d-m-Y') . ' 00:00:00';
-    $fi = DateTime::createFromFormat('Y-m-d', $filtreDataFi) -> format('d-m-Y') . ' 23:59:59';
-    $filtre['datetime'] = ['$gte' => $inici, '$lte' => $fi];
-} elseif ($filtreDataInici) {
-    // to filtre només el dia de inici
-    $inici = DateTime::createFromFormat('Y-m-d', $filtreDataInici) -> format('d-m-Y') . ' 00:00:00';
-    $fi = DateTime::createFromFormat('Y-m-d', $filtreDataFi) -> format('d-m-Y') . ' 23:59:59';
-    $filtre['datatime'] =['$gte' => $inici, '$lte' => $fi];
-}
-// Usuari
-if ($filtreUsuari) {
-    $filtre['usuari'] = $filtreUsuari;
-}
-// Pagina
-if ($filtrePagina) {
-    $filtre['page'] = $filtrePagina;
-}
-
-
-$logs = $collection -> find($filtre, [
-    'sort' => ['_id' => -1],
-    'limit'    => 10,
-]);
 ?>
 
 <div class="container mt-5">
@@ -102,65 +109,60 @@ $logs = $collection -> find($filtre, [
 </div>
 
 <div class="container">
-    <!--Total accesos. Usuari més actiu. Pagina més visitada. Accessos per dia-->
     <div class="row g-3 mb-4">
-        <!--Total Accesos-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
                 <div class="card-body text-center">
-                    <i class="bi bi-bar-chart-fill fs-1"></i><!--Icona d'un chart-->
+                    <i class="bi bi-bar-chart-fill fs-1"></i>
                     <h6 class="mt-2">Total accessos</h6>
                     <h2><?= $totalGeneral ?></h2>
                 </div>
             </div>
         </div>
-        <!--Usuari més actiu-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
                 <div class="card-body text-center">
-                    <i class="bi bi-person-check fs-1"></i><!--Usuari + actiu, o guanyador: bi-person-fill o bi-trophy-fill-->
+                    <i class="bi bi-person-check fs-1"></i>
                     <h6 class="mt-2">Usuari més actiu</h6>
                     <h2><?= $usuariMesActiu ?></h2>
                 </div>
             </div>
         </div>
-        <!--Pàgina més visitada-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
                 <div class="card-body text-center">
-                    <i class="bi-globe fs-1"></i><!--o: bi-file-earmark-text-fill-->
+                    <i class="bi-globe fs-1"></i>
                     <h6 class="mt-2">Pàgina més visitada</h6>
                     <h2><?= $paginaMesVisitada ?></h2>
                 </div>
             </div>
         </div>
-        <!--Accessos per dia-->
         <div class="col-md-3">
             <div class="card text-white bg-primary h-100 shadow-sm">
                 <div class="card-body text-center">
-                    <i class="bi-calendar-event-fill fs-1"></i><!--o: bi-graph-up-arrow-->
-                    <h6 class="mt-2">Accessos per dia</h6>
+                    <i class="bi-calendar-event-fill fs-1"></i>
+                    <h6 class="mt-2">Accessos d'avui</h6>
                     <h2><?= $accessosAvui ?></h2>
                 </div>
             </div>
         </div>
     </div>
-    <!--Filters-->
+
     <form method="GET" action="logs.php">
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-6 col-md-2">
-                        <label for="Data Inici" class="form-label small fw-medium">Des de:</label>
-                        <input type="date" name="data_inici" class="form-control form-control-sm" value="<?= htmlspecialchars($filtreDataInici) ?>">
+                        <label for="data_inici" class="form-label small fw-medium">Des de:</label>
+                        <input type="date" name="data_inici" id="data_inici" class="form-control form-control-sm" value="<?= htmlspecialchars($filtreDataInici) ?>">
                     </div>
                     <div class="col-6 col-md-2">
-                        <label for="útima data" class="form-label small fw-medium">Fins a:</label>
-                        <input type="date" name="data_fi" class="form-control form-control-sm" value="<?= htmlspecialchars($filtreDataFi) ?>">
+                        <label for="data_fi" class="form-label small fw-medium">Fins a:</label>
+                        <input type="date" name="data_fi" id="data_fi" class="form-control form-control-sm" value="<?= htmlspecialchars($filtreDataFi) ?>">
                     </div>
                     <div class="col-md-3">
-                        <label for="Data Inici" class="form-label small fw-medium">Usuari</label>
-                        <select name="usuari" id="usuari" class="form-control form-control-sm">
+                        <label for="usuari" class="form-label small fw-medium">Usuari</label>
+                        <select name="usuari" id="usuari" class="form-select form-select-sm">
                             <option value="">Tots</option>
                             <option value="professor" <?= $filtreUsuari === 'professor' ? 'selected' : '' ?>>Professor</option>
                             <option value="tecnic" <?= $filtreUsuari === 'tecnic' ? 'selected' : '' ?>>Tècnic</option>
@@ -169,23 +171,23 @@ $logs = $collection -> find($filtre, [
                         </select>
                     </div>
                     <div class="col-md-5 d-flex align-items-end gap-2">
-                        <button class="btn btn-primary text-white btn-sm px-3">
+                        <button type="submit" class="btn btn-primary text-white btn-sm px-3">
                             <i class="bi bi-funnel me-1"></i>Filtrar
                         </button>
                         <a href="logs.php" class="btn btn-light border btn-sm px-3 text-muted">
-                            <i class="bi bi-eraser-fill me-1"></i>Natejar
+                            <i class="bi bi-eraser-fill me-1"></i>Netejar
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-    <!--Charts-->
+
     <div class="row g-4 mb-4">
         <div class="col-12 col-lg-8">
-            <div class="card-border shadow-sm h-100">
+            <div class="card border shadow-sm h-100">
                 <div class="card-header">
-                    <h6 class="fw-bold mb-0"><i class="bi bi-graph-up"></i> Tendència</h6>
+                    <h6 class="fw-bold mb-0"><i class="bi bi-graph-up"></i> Tendència per Dies</h6>
                 </div>
                 <div class="card-body">
                     <div style="height: 250px;">
@@ -197,7 +199,7 @@ $logs = $collection -> find($filtre, [
         <div class="col-12 col-lg-4">
             <div class="card border-0">
                 <div class="card-header">
-                    <h6 class="fw-bold mb-0"><i class="bi bi-people-fill"> Usuari</i></h6>
+                    <h6 class="fw-bold mb-0"><i class="bi bi-people-fill"> Usuaris</i></h6>
                 </div>
                 <div class="card-body">
                     <div style="height: 200px;">
@@ -207,10 +209,10 @@ $logs = $collection -> find($filtre, [
             </div>
         </div>
     </div>
-    <!--Tabla-->
+
     <div class="card border-0 shadow-sm">
         <div class="card-header bg-primary text-white py-3">
-            <h6 class="fw-bold mb-0"><i class="bi bi-list-columns-reverse">Últims 10 logs</i></h6>
+            <h6 class="fw-bold mb-0"><i class="bi bi-list-columns-reverse"> Últims 10 logs trobats</i></h6>
         </div>
         <div class="table-responsive">
             <table class="table table-hover align-middle">
@@ -218,46 +220,54 @@ $logs = $collection -> find($filtre, [
                     <tr class="small">
                         <th class="ps-3">Data amb Hora</th>
                         <th>URL</th>
+                        <th>Navegador</th>
                         <th>Role</th>
                         <th>Mètode</th>
                         <th class="pe-3">IP</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($logs as $log): ?>
-                    <!--Loop per saber quin badge utilitzar-->
-                    <?php
-                        $method = htmlspecialchars($log['method'] ?? 'GET');
-                        $badgeClass = match($method) {
-                            'POST' => 'bg-warning text-dark',
-                            'DELETE' => 'bg-danger',
-                            default => 'bg-success',
-                        };
-                    ?>
+                    <?php if (empty($logsTaula)): ?>
                         <tr>
-                            <td><?= htmlspecialchars($log['datetime'] ?? '') ?></td>
-                            <td><code><?= htmlspecialchars($log['page'] ?? '') ?></code></td>
-                            <td><div class="badge bg-secondary"><?= htmlspecialchars($log['usuari'] ?? 'anonim') ?></div></td>
-                            <td><span class="badge <?= $badgeClass ?>"><?= $method ?></span></td>
-                            <td><?= htmlspecialchars($log['ip_origin'] ?? '') ?></td>
+                            <td colspan="6" class="text-center py-4 text-muted">No hi ha registres amb aquests filtres.</td>
                         </tr>
-                    <?php endforeach ?>
+                    <?php else: ?>
+                        <?php foreach ($logsTaula as $log): ?>
+                        <?php
+                            $method = htmlspecialchars($log['method'] ?? 'GET');
+                            $badgeClass = match($method) {
+                                'POST' => 'bg-warning text-dark',
+                                'DELETE' => 'bg-danger',
+                                default => 'bg-success',
+                            };
+                        ?>
+                            <tr>
+                                <td class="ps-3"><?= htmlspecialchars($log['datetime'] ?? '') ?></td>
+                                <td><code><?= htmlspecialchars($log['page'] ?? '') ?></code></td>
+                                <td title="<?= htmlspecialchars($log['navegador'] ?? 'Desconegut') ?>" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    <?= htmlspecialchars($log['navegador'] ?? 'Desconegut') ?>
+                                </td>
+                                <td><div class="badge bg-secondary"><?= htmlspecialchars($log['usuari'] ?? 'anonim') ?></div></td>
+                                <td><span class="badge <?= $badgeClass ?>"><?= $method ?></span></td>
+                                <td class="pe-3"><?= htmlspecialchars($log['ip_origin'] ?? '') ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Dades i scripts per al Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // gràfica tendencia
+    // Gràfica tendencia (Eix X: Dies)
     new Chart(document.getElementById('trendChart'), {
         type: 'line',
         data: {
             labels: <?= json_encode($labelsGrafica) ?>,
             datasets: [{
-                label: 'Acessos',
+                label: 'Accessos al dia',
                 data: <?= json_encode($dadesGrafica) ?>,
                 borderColor: '#185FA5',
                 backgroundColor: 'rgba(24, 95, 165, 0.1)',
@@ -269,9 +279,10 @@ $logs = $collection -> find($filtre, [
             responsive: true,
             maintainAspectRatio: false,
             plugins: {  legend: { display: false}},
-            scales: { y: { grid: { display: false}}}
+            scales: { y: { beginAtZero: true, grid: { display: false}}}
         }
     });
+
     // Pie Chart
     new Chart(document.getElementById('pieChart'), {
         type: 'doughnut',
@@ -290,7 +301,6 @@ $logs = $collection -> find($filtre, [
         }
     });
 </script>
-
 
 </body>
 </html>

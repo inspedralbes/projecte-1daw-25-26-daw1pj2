@@ -26,7 +26,7 @@ include_once "../header.php";
                     <div id="error-descripcion" class="invalid-feedback bg-white p-1 rounded mt-1">
                         La descripció és obligatòria (mínim 10 caràcters).
                     </div>
-                    <input type="hidden" name="idIncidencia" value="<?php echo $_GET['id']; ?>">
+                <input type="hidden" name="idIncidencia" value="<?php echo htmlspecialchars($_GET['id'] ?? $_GET['idIncidencia'] ?? ''); ?>">
                 </div>
                 <div class="form-group mb-4 mt-3"><button class="btn btn-outline-light border-3 shadow">Crear</button></div>
             </form>

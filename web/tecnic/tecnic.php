@@ -1,7 +1,6 @@
 <?php
 $_SESSION['role'] = 'tecnic'; // to set user's role
 
-require_once "../header.php";
 $mysqli = include_once "../conexion.php";
 # creamos una variable que haga un SELECT a la BD mediante conexion.php
 $return = $mysqli->query("SELECT * FROM TECNIC");
@@ -88,14 +87,17 @@ require_once "../header.php";
                             <td><?php echo htmlspecialchars($incidencia['dataFinalitzacio'] ?? 'No finalitzada'); ?></td>
                             <td><?php echo htmlspecialchars($incidencia['tipo']); ?></td>
                             <td><?php echo htmlspecialchars($incidencia['prioritat']); ?></td>
-                            <td><a href="?id=<?php echo $id_tecnic; ?>&action=tancar&id_incidencia=<?php echo $incidencia['idIncidencia']; ?>" 
-                            class="btn btn-sm btn-danger" onclick="return confirm('Segur que vols tancar la incidència <?php echo $incidencia['idIncidencia']; ?>?')">
-                            Tancar
-                            </a></td>
+                            <td><a href="tecnic.php?id=<?php echo urlencode($id_tecnic); ?>&action=tancar&id_incidencia=<?php 
+                            echo urlencode($incidencia['idIncidencia']); ?>" class="btn btn-sm btn-danger" 
+                                onclick="return confirm('Segur que vols tancar la incidència <?php echo htmlspecialchars($incidencia['idIncidencia']); ?>?')">
+                                    Tancar
+                                </a>
+                            </td>
                             <td><a href="llistarActuacions.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
                             class="btn btn-sm btn-info">Llistat d'actuacions</a></td>
-                            <td><a href="actuacioTec.php?id=<?php echo htmlspecialchars($incidencia["idIncidencia"])?>" 
-                            class="btn btn-sm btn-danger">Afegir actuació</a></td>
+                            <td><a href="actuacioTec.php?id=<?php echo $incidencia['idIncidencia']; ?>" class="btn btn-primary">
+                                Afegir Actuació
+                            </a></td>
                             
                         </tr>
                     <?php endforeach; ?>

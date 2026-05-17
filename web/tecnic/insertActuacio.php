@@ -1,8 +1,13 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
 $_SESSION['role'] = 'tecnic';
 
-    include_once "../header.php"; 
-    include_once "../conexion.php"; // $mysqli está disponible amn "con.php"
+include_once "../header.php"; 
+
+if (!isset($mysqli)) { $mysqli = include "../conexion.php"; }
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $desc = $_POST["descripcio"]; /*$variable  [columna] */
