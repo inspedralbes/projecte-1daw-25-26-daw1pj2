@@ -2,9 +2,14 @@
 if (session_status() === PHP_SESSION_NONE) { session_start(); }
 include_once 'header.php'; 
 
-// Connexió a MongoDB Atlas
-$mongoUri = "mongodb+srv://a25adrtomdie_db_user:PLT%2BRf4jTW61VqCN@cluster0.ew1qzdv.mongodb.net/?appName=Cluster0";
-$client = new MongoDB\Client($mongoUri);
+// URI de connexió a MongoDB Atlas (producció)
+
+//$mongoUri = "mongodb+srv://a25adrtomdie_db_user:PLT+Rf4jTW61VqCN@cluster0.ew1qzdv.mongodb.net/?appName=Cluster0";//<-- direccion mongo atlas (solo produccion)
+//$client = new MongoDB\Client($mongoUri);//<-- crar conexion a producion (Atlas)
+
+//Mongo a local
+$client = new MongoDB\Client("mongodb://admin:pass@mongo:27017"); //<-- Crear conexion mongo a local
+
 $collection = $client->logs->logs;
 
 // 1. Recollim les variables del filtre (mètode GET)
